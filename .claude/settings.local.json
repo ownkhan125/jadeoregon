@@ -1,0 +1,34 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git clone *)",
+      "Bash(mkdir -p .claude/skills)",
+      "Bash(cp -r /tmp/playwright-skill-temp/skills/playwright-skill .claude/skills/)",
+      "Bash(npm run *)",
+      "Bash(npm -v)",
+      "Bash(npx --yes create-next-app@latest . --js --tailwind --app --src-dir --eslint --import-alias \"@/*\" --use-npm --yes)",
+      "Read(//c/Users/General/Documents/GitHub/**)",
+      "Bash(npx --yes create-next-app@latest jadeoregon-tmp --js --tailwind --app --src-dir --eslint --import-alias \"@/*\" --use-npm --yes)",
+      "Bash(mv *)",
+      "Bash(npm install *)",
+      "WebFetch(domain:www.drkahlforcongress.com)",
+      "Bash(node run.js \"C:/Users/General/AppData/Local/Temp/playwright-test-jadeoregon.js\")",
+      "Bash(node run.js \"C:/Users/General/AppData/Local/Temp/playwright-test-interactions.js\")",
+      "Bash(curl -s -L -A \"Mozilla/5.0\" https://www.drkahlforcongress.com/ -o /tmp/home.html -w \"HTTP:%{http_code}\\\\n\")",
+      "Bash(curl -s -L -A \"Mozilla/5.0\" https://www.drkahlforcongress.com/about -o /tmp/about.html -w \"HTTP:%{http_code}\\\\n\")",
+      "Bash(curl -s -L -A \"Mozilla/5.0\" https://www.drkahlforcongress.com/events -o /tmp/events.html -w \"HTTP:%{http_code}\\\\n\")",
+      "Bash(curl -s -L -A \"Mozilla/5.0\" https://www.drkahlforcongress.com/endorsements -o /tmp/endorsements.html -w \"HTTP:%{http_code}\\\\n\")",
+      "Bash(curl -s -L -A \"Mozilla/5.0\" https://www.drkahlforcongress.com/volunteer -o /tmp/volunteer.html -w \"HTTP:%{http_code}\\\\n\")",
+      "Bash(curl -s -L -A \"Mozilla/5.0\" https://www.drkahlforcongress.com/news -o /tmp/news.html -w \"news:%{http_code}\\\\n\")",
+      "Bash(curl -s -L -A \"Mozilla/5.0\" https://www.drkahlforcongress.com/blog -o /tmp/blog.html -w \"blog:%{http_code}\\\\n\")",
+      "Bash(curl -s -L -A \"Mozilla/5.0\" https://www.drkahlforcongress.com/updates -o /tmp/updates.html -w \"updates:%{http_code}\\\\n\")",
+      "Bash(curl -s -L -A \"Mozilla/5.0\" https://www.drkahlforcongress.com/issues -o /tmp/issues.html -w \"issues:%{http_code}\\\\n\")",
+      "Bash(curl -s -L -A \"Mozilla/5.0\" \"https://www.drkahlforcongress.com/donate/\" -o /tmp/donate2.html -w \"donate-slash:%{http_code}\\\\n\")",
+      "Bash(awk '{print $5, $9}')",
+      "Bash(curl -s -L -A \"Mozilla/5.0\" \"https://www.drkahlforcongress.com/events/6a1c6e092de27d007d239c17\" -o /tmp/event1.html -w \"event:%{http_code}\\\\n\")",
+      "Bash(node *)",
+      "Bash(taskkill /F /PID 8608)",
+      "Bash(cmd.exe //c \"taskkill /F /PID 8608\")"
+    ]
+  }
+}

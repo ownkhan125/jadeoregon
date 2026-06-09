@@ -1,0 +1,248 @@
+@import "tailwindcss";
+
+@theme inline {
+  /* Brand palette — premium, cinematic, tech-political */
+  --color-ink: #0b1f3a;
+  --color-ink-soft: #2b3a55;
+  --color-cobalt: #406aaf;
+  --color-azure: #427ab5;
+  --color-saffron: #f7dd7d;
+  --color-cream: #ffe8be;
+  --color-paper: #fdf6e6;
+  --color-paper-soft: #fff8e8;
+  --color-line: #1d2a44;
+  --color-line-soft: rgba(11, 31, 58, 0.12);
+
+  --color-background: var(--color-paper);
+  --color-foreground: var(--color-ink);
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-display: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+
+  --radius-pill: 999px;
+  --shadow-glow: 0 30px 80px -40px rgba(11, 31, 58, 0.45);
+  --shadow-card:
+    0 1px 0 rgba(255, 255, 255, 0.6) inset,
+    0 1px 2px rgba(11, 31, 58, 0.06),
+    0 12px 32px -16px rgba(11, 31, 58, 0.18);
+  --shadow-card-hover:
+    0 1px 0 rgba(255, 255, 255, 0.7) inset,
+    0 2px 4px rgba(11, 31, 58, 0.08),
+    0 30px 60px -28px rgba(11, 31, 58, 0.28);
+}
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+
+html {
+  overflow-x: clip;
+}
+
+/* Form fields default to a wide intrinsic min-content, which forces grid/flex
+   parents to grow beyond the viewport on narrow screens. Reset so they shrink. */
+input,
+textarea,
+select,
+button {
+  min-width: 0;
+}
+
+/* Display font: tighter tracking for cinematic, futuristic feel */
+.font-display {
+  font-family: var(--font-display);
+  font-feature-settings: "ss01", "ss02";
+  letter-spacing: -0.022em;
+}
+
+::selection {
+  background: var(--color-saffron);
+  color: var(--color-ink);
+}
+
+/* Split text base */
+.split-prepared .split-line {
+  overflow: hidden;
+}
+.split-prepared .split-word,
+.split-prepared .split-char {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+/* Reveal classes used by ScrollTrigger */
+.reveal-line {
+  transform-origin: left center;
+  transform: scaleX(0);
+}
+.reveal-up {
+  opacity: 0;
+  transform: translateY(28px);
+}
+.reveal-fade {
+  opacity: 0;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .reveal-line,
+  .reveal-up,
+  .reveal-fade {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+  .hero-stream path,
+  .hero-grid line {
+    animation: none !important;
+  }
+}
+
+/* ────────────────────────────────────────────────────────────────
+   Hero — animated data stream + grid
+   ──────────────────────────────────────────────────────────────── */
+.hero-stream path {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 6 220;
+  animation: stream 9s linear infinite;
+  opacity: 0.55;
+}
+.hero-stream .s1 { animation-delay: 0s; }
+.hero-stream .s2 { animation-delay: -2.4s; }
+.hero-stream .s3 { animation-delay: -4.8s; }
+.hero-stream .s4 { animation-delay: -7.2s; }
+
+@keyframes stream {
+  0% { stroke-dashoffset: 480; }
+  100% { stroke-dashoffset: 0; }
+}
+
+.hero-grid {
+  animation: gridDrift 22s ease-in-out infinite alternate;
+  transform-origin: center;
+}
+@keyframes gridDrift {
+  0%   { transform: translate3d(0, 0, 0); opacity: 0.55; }
+  100% { transform: translate3d(0, -8px, 0); opacity: 0.75; }
+}
+
+.node-pulse {
+  animation: nodePulse 3.6s ease-in-out infinite;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+.node-pulse.delay-1 { animation-delay: -0.9s; }
+.node-pulse.delay-2 { animation-delay: -1.8s; }
+.node-pulse.delay-3 { animation-delay: -2.7s; }
+@keyframes nodePulse {
+  0%, 100% { transform: scale(0.9); opacity: 0.55; }
+  50%      { transform: scale(1.4); opacity: 1; }
+}
+
+/* ────────────────────────────────────────────────────────────────
+   Card system — depth + corner brackets + tilt
+   ──────────────────────────────────────────────────────────────── */
+.card-surface {
+  background: linear-gradient(180deg, var(--color-paper) 0%, var(--color-paper-soft) 100%);
+  box-shadow: var(--shadow-card);
+  transition: box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 0.4s ease;
+}
+.card-surface:hover {
+  box-shadow: var(--shadow-card-hover);
+}
+
+.card-dark {
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+  backdrop-filter: blur(4px);
+  transition: box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 0.4s ease, transform 0.5s ease;
+}
+
+/* Corner brackets */
+.corner-bracket {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-color: currentColor;
+  border-style: solid;
+  border-width: 0;
+  opacity: 0;
+  transition: opacity 0.5s ease, width 0.5s cubic-bezier(0.22,1,0.36,1), height 0.5s cubic-bezier(0.22,1,0.36,1);
+}
+.group:hover .corner-bracket { opacity: 1; width: 22px; height: 22px; }
+.corner-tl { top: 10px; left: 10px; border-top-width: 1.5px; border-left-width: 1.5px; }
+.corner-tr { top: 10px; right: 10px; border-top-width: 1.5px; border-right-width: 1.5px; }
+.corner-bl { bottom: 10px; left: 10px; border-bottom-width: 1.5px; border-left-width: 1.5px; }
+.corner-br { bottom: 10px; right: 10px; border-bottom-width: 1.5px; border-right-width: 1.5px; }
+
+/* ────────────────────────────────────────────────────────────────
+   Button — animated stroke + sweep + corner brackets
+   ──────────────────────────────────────────────────────────────── */
+.btn-stroke {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+.btn-stroke rect {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.4;
+  stroke-dasharray: 400;
+  stroke-dashoffset: 400;
+  transition: stroke-dashoffset 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.btn:hover .btn-stroke rect {
+  stroke-dashoffset: 0;
+}
+
+/* Paper grain (kept) */
+.bg-grain {
+  background-image:
+    radial-gradient(rgba(11, 31, 58, 0.04) 1px, transparent 1px),
+    radial-gradient(rgba(11, 31, 58, 0.03) 1px, transparent 1px);
+  background-size:
+    24px 24px,
+    36px 36px;
+  background-position:
+    0 0,
+    12px 18px;
+}
+
+/* Timeline (events) */
+.timeline-rail {
+  background: linear-gradient(180deg, rgba(11,31,58,0.18) 0%, rgba(11,31,58,0.18) 100%);
+}
+.timeline-progress {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, var(--color-cobalt), var(--color-saffron));
+  transform-origin: top;
+  transform: scaleY(0);
+}

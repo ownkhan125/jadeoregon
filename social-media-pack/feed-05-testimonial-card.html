@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Feed 05 — Testimonial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    background:#11161e;display:grid;place-items:center;
+    font-family:'Space Grotesk',system-ui,sans-serif;padding:48px;
+  }
+  .canvas{
+    width:1080px;height:1080px;position:relative;overflow:hidden;
+    background:
+      radial-gradient(120% 80% at 0% 0%, rgba(247,221,125,.3), transparent 50%),
+      radial-gradient(80% 80% at 100% 100%, rgba(64,106,175,.18), transparent 60%),
+      #fdf6e6;
+    color:#0a1226;
+    box-shadow:0 60px 140px -40px rgba(0,0,0,.6);
+  }
+  .grain{
+    position:absolute;inset:0;pointer-events:none;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/></svg>");
+    opacity:.12;mix-blend-mode:multiply;
+  }
+
+  .frame{
+    position:absolute;inset:48px;border:1px solid rgba(10,18,38,.12);
+    pointer-events:none;
+  }
+
+  .top-meta{
+    position:absolute;top:80px;left:80px;right:80px;
+    display:flex;justify-content:space-between;align-items:center;
+    font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.28em;text-transform:uppercase;
+    color:rgba(10,18,38,.55);
+  }
+  .top-meta .lhs{display:flex;align-items:center;gap:14px}
+  .top-meta .star{color:#f7dd7d;font-size:14px;letter-spacing:.5em}
+
+  /* center portrait + quote */
+  .stage{
+    position:absolute;left:80px;right:80px;top:50%;transform:translateY(-50%);
+    text-align:center;
+  }
+  .portrait-wrap{
+    width:200px;height:200px;margin:0 auto 44px;position:relative;
+  }
+  .portrait{
+    width:200px;height:200px;border-radius:50%;
+    background-image:
+      linear-gradient(180deg, rgba(10,18,38,.05), rgba(10,18,38,.45)),
+      url("https://picsum.photos/seed/jade-testimonial-01/600/600");
+    background-size:cover;background-position:center 30%;
+    filter:contrast(1.05) saturate(.85);
+    box-shadow:0 30px 60px -20px rgba(10,18,38,.4);
+    position:relative;z-index:2;
+  }
+  .portrait-wrap::before{
+    content:"";position:absolute;inset:-14px;border-radius:50%;border:1px dashed rgba(10,18,38,.25);
+  }
+  .portrait-wrap::after{
+    content:"";position:absolute;left:50%;bottom:-14px;width:34px;height:34px;border-radius:50%;
+    background:#f7dd7d;transform:translateX(-50%);z-index:3;display:grid;place-items:center;
+    box-shadow:0 8px 22px -6px rgba(247,221,125,.7);
+  }
+
+  .quote-mark{
+    position:absolute;font-family:'Instrument Serif',serif;font-style:italic;
+    font-size:240px;line-height:.5;color:#f7dd7d;opacity:.65;
+  }
+  .qm.l{top:140px;left:140px}
+  .qm.r{bottom:60px;right:140px;transform:rotate(180deg)}
+
+  .quote{
+    font-family:'Instrument Serif',serif;font-weight:400;
+    font-size:50px;line-height:1.18;letter-spacing:-.012em;
+    color:#0a1226;max-width:780px;margin:0 auto;
+  }
+  .quote em{font-style:italic;color:#406aaf}
+
+  .author{
+    margin-top:48px;display:flex;flex-direction:column;align-items:center;gap:6px;
+  }
+  .author .name{
+    font-family:'Space Grotesk';font-weight:500;font-size:18px;letter-spacing:.01em;
+  }
+  .author .role{
+    font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.32em;text-transform:uppercase;
+    color:rgba(10,18,38,.55);
+  }
+
+  /* bottom strip */
+  .bottom-strip{
+    position:absolute;bottom:80px;left:80px;right:80px;
+    display:flex;justify-content:space-between;align-items:center;
+    font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.28em;text-transform:uppercase;
+    color:rgba(10,18,38,.5);
+  }
+  .stars{color:#f7dd7d;letter-spacing:.35em;font-size:14px}
+  .pill{
+    padding:8px 16px;border:1px solid rgba(10,18,38,.25);border-radius:999px;
+    color:#0a1226;
+  }
+</style>
+</head>
+<body>
+  <div class="canvas">
+    <div class="grain"></div>
+    <div class="frame"></div>
+
+    <div class="top-meta">
+      <div class="lhs"><span class="star">★ ★ ★ ★ ★</span> <span>·</span> <span>Voices of OR-05</span></div>
+      <span>№ 05 / 10</span>
+    </div>
+
+    <div class="stage">
+      <div class="portrait-wrap"><div class="portrait"></div></div>
+
+      <span class="quote-mark qm l">"</span>
+      <span class="quote-mark qm r">"</span>
+
+      <p class="quote">Lorem ipsum dolor sit amet, consectetur adipiscing elit, <em>sed do eiusmod</em> tempor incididunt — ut labore et dolore magna aliqua.</p>
+
+      <div class="author">
+        <div class="name">— Marcus Halloway</div>
+        <div class="role">Small Business Owner · Salem, OR</div>
+      </div>
+    </div>
+
+    <div class="bottom-strip">
+      <span>@JadeForCongress</span>
+      <span class="pill">Read full story</span>
+      <span>Vol. 05 — Voices</span>
+    </div>
+  </div>
+</body>
+</html>

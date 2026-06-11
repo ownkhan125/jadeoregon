@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Feed 10 — Brand Monogram</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,500,100,1&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    background:#11161e;display:grid;place-items:center;
+    font-family:'Space Grotesk',system-ui,sans-serif;padding:48px;
+  }
+  .canvas{
+    width:1080px;height:1080px;position:relative;overflow:hidden;
+    color:#fdf6e6;
+    background:
+      radial-gradient(140% 100% at 50% 35%, #1a2750 0%, #0a1226 60%, #04060e 100%);
+    box-shadow:0 60px 140px -40px rgba(0,0,0,.6);
+  }
+  .glow-y{
+    position:absolute;left:50%;top:36%;transform:translate(-50%,-50%);
+    width:620px;height:620px;border-radius:50%;
+    background:radial-gradient(circle, rgba(247,221,125,.3), rgba(247,221,125,.06) 45%, transparent 70%);
+    filter:blur(20px);
+  }
+  .glow-b{
+    position:absolute;left:0;top:70%;
+    width:520px;height:520px;border-radius:50%;
+    background:radial-gradient(circle, rgba(64,106,175,.4), transparent 65%);
+    filter:blur(20px);
+  }
+  .grid{
+    position:absolute;inset:0;opacity:.07;
+    background-image:
+      linear-gradient(0deg, rgba(255,232,190,.6) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,232,190,.6) 1px, transparent 1px);
+    background-size:90px 90px;
+  }
+  .grain{
+    position:absolute;inset:0;pointer-events:none;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.5 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/></svg>");
+    opacity:.4;mix-blend-mode:overlay;
+  }
+
+  .br{position:absolute;width:30px;height:30px;border-color:rgba(255,232,190,.4)}
+  .br.tl{top:42px;left:42px;border-top:1px solid;border-left:1px solid}
+  .br.tr{top:42px;right:42px;border-top:1px solid;border-right:1px solid}
+  .br.bl{bottom:42px;left:42px;border-bottom:1px solid;border-left:1px solid}
+  .br.br{bottom:42px;right:42px;border-bottom:1px solid;border-right:1px solid}
+
+  /* TOP BAR */
+  .top{
+    position:absolute;top:78px;left:78px;right:78px;
+    display:flex;justify-content:space-between;align-items:center;
+    font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.32em;text-transform:uppercase;
+    color:rgba(255,232,190,.65);
+  }
+  .top .lhs{display:flex;align-items:center;gap:14px}
+  .top .lhs .star{color:#f7dd7d}
+
+  /* RING — sized to sit cleanly above strap, smaller than before */
+  .ring{
+    position:absolute;left:50%;top:36%;transform:translate(-50%,-50%);
+    width:560px;height:560px;border-radius:50%;
+    border:1px dashed rgba(255,232,190,.22);
+  }
+  /* MONOGRAM — own zone, top:36% of canvas, smaller font */
+  .mono{
+    position:absolute;left:50%;top:36%;transform:translate(-50%,-50%);
+    font-family:'Fraunces',serif;font-weight:500;
+    font-size:380px;line-height:1;letter-spacing:-.08em;
+    color:#fdf6e6;
+    display:flex;align-items:center;gap:0;white-space:nowrap;
+  }
+  .mono .j{display:inline-block;color:#fdf6e6;font-style:italic;font-variation-settings:"SOFT" 100, "WONK" 1}
+  .mono .slash{display:inline-block;color:#f7dd7d;font-weight:400;font-size:380px;margin:0 -14px;transform:translateY(-22px)}
+  .mono .o{display:inline-block;color:#fdf6e6;font-style:italic}
+
+  /* STRAP — below ring with breathing room */
+  .strap{
+    position:absolute;left:80px;right:80px;top:70%;
+    text-align:center;
+  }
+  .strap .pipe{
+    width:60px;height:1px;background:rgba(247,221,125,.55);margin:0 auto 22px;
+  }
+  .strap h2{
+    font-family:'Fraunces',serif;font-weight:500;font-style:italic;
+    font-size:40px;line-height:1.2;letter-spacing:-.012em;
+    color:#ffe8be;max-width:680px;margin:0 auto;
+  }
+  .strap h2 b{color:#f7dd7d;font-weight:500;font-style:normal}
+
+  /* BOTTOM ROW */
+  .bot{
+    position:absolute;bottom:78px;left:78px;right:78px;
+    display:flex;justify-content:space-between;align-items:center;
+    padding-top:22px;border-top:1px solid rgba(255,232,190,.18);
+    font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.32em;text-transform:uppercase;
+    color:rgba(255,232,190,.6);
+  }
+  .bot b{color:#f7dd7d;font-weight:500}
+</style>
+</head>
+<body>
+  <div class="canvas">
+    <div class="glow-y"></div>
+    <div class="glow-b"></div>
+    <div class="grid"></div>
+
+    <span class="br tl"></span><span class="br tr"></span><span class="br bl"></span><span class="br br"></span>
+
+    <div class="top">
+      <span class="lhs"><span class="star">★</span> Friends of Jade Oregon · EST. 2026</span>
+      <span>Vol. 10 / 10</span>
+    </div>
+
+    <div class="ring"></div>
+    <div class="mono">
+      <span class="j">J</span><span class="slash">/</span><span class="o">O</span>
+    </div>
+
+    <div class="strap">
+      <div class="pipe"></div>
+      <h2>Lorem ipsum dolor sit amet, <b>consectetur</b> — adipiscing elit.</h2>
+    </div>
+
+    <div class="bot">
+      <span><b>@JadeForCongress</b></span>
+      <span>OR · 05 · 2026</span>
+      <span>Jadeoregon.com</span>
+    </div>
+
+    <div class="grain"></div>
+  </div>
+</body>
+</html>

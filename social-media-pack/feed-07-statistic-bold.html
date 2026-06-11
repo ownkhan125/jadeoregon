@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Feed 07 — Statistic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    background:#11161e;display:grid;place-items:center;
+    font-family:'Space Grotesk',system-ui,sans-serif;padding:48px;
+  }
+  .canvas{
+    width:1080px;height:1080px;position:relative;overflow:hidden;
+    background:
+      radial-gradient(120% 80% at 80% 0%, rgba(247,221,125,.6), transparent 55%),
+      #f7dd7d;
+    color:#0a1226;
+    box-shadow:0 60px 140px -40px rgba(0,0,0,.6);
+  }
+  .grid{
+    position:absolute;inset:0;opacity:.16;
+    background-image:
+      linear-gradient(0deg, rgba(10,18,38,.5) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(10,18,38,.5) 1px, transparent 1px);
+    background-size:54px 54px;
+  }
+  .grain{
+    position:absolute;inset:0;pointer-events:none;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/></svg>");
+    opacity:.16;mix-blend-mode:multiply;
+  }
+
+  /* TOP — header pill row */
+  .top{
+    position:absolute;top:78px;left:78px;right:78px;
+    display:flex;justify-content:space-between;align-items:center;
+    font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.32em;text-transform:uppercase;
+    color:#0a1226;z-index:5;
+  }
+  .top .pill{display:inline-flex;align-items:center;gap:10px;padding:9px 16px;background:#0a1226;color:#f7dd7d}
+  .top .pill .dot{width:7px;height:7px;border-radius:50%;background:#f7dd7d;box-shadow:0 0 0 4px rgba(247,221,125,.25)}
+
+  /* EYEBROW — well above the number */
+  .eyebrow{
+    position:absolute;left:78px;top:170px;right:78px;
+    font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.32em;text-transform:uppercase;
+    color:rgba(10,18,38,.7);
+    display:flex;align-items:center;gap:14px;z-index:4;
+  }
+  .eyebrow .bar{width:60px;height:1px;background:#0a1226;opacity:.5}
+
+  /* MEGA number — own band, no overlap */
+  .num-wrap{
+    position:absolute;left:78px;top:230px;right:78px;
+    display:flex;align-items:flex-start;gap:0;
+  }
+  .num{
+    font-family:'Fraunces',serif;font-weight:500;
+    font-size:480px;line-height:.82;letter-spacing:-.06em;
+    color:#0a1226;
+    position:relative;display:inline-flex;align-items:flex-start;
+  }
+  .num .pct{
+    font-family:'Space Grotesk';font-weight:600;font-size:108px;
+    color:#406aaf;letter-spacing:-.02em;margin-top:18px;margin-left:6px;
+  }
+
+  /* side caption — far right edge, vertical */
+  .side{
+    position:absolute;right:36px;top:280px;writing-mode:vertical-rl;transform:rotate(180deg);
+    font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.5em;text-transform:uppercase;
+    color:rgba(10,18,38,.5);z-index:3;
+  }
+
+  /* horizontal accent bar after number */
+  .accent-bar{
+    position:absolute;left:78px;right:78px;top:720px;height:6px;background:#406aaf;
+  }
+
+  /* lower content — own zone */
+  .lower{
+    position:absolute;left:78px;right:78px;top:760px;
+    display:grid;grid-template-columns:1.25fr 1fr;gap:56px;align-items:start;
+  }
+  .lower h2{
+    font-family:'Fraunces',serif;font-weight:500;
+    font-size:54px;line-height:1.04;letter-spacing:-.018em;
+    color:#0a1226;
+  }
+  .lower h2 em{font-style:italic;color:#406aaf}
+  .lower .deck{
+    color:rgba(10,18,38,.7);font-size:15px;line-height:1.55;
+    padding-top:8px;
+  }
+  .lower .deck .src{
+    margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.28em;text-transform:uppercase;
+    color:rgba(10,18,38,.55);
+  }
+
+  /* bottom rule */
+  .bot{
+    position:absolute;left:78px;right:78px;bottom:60px;
+    display:flex;justify-content:space-between;align-items:center;gap:24px;
+    padding-top:22px;border-top:1px solid rgba(10,18,38,.3);
+    font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.28em;text-transform:uppercase;
+    color:#0a1226;
+  }
+  .bot b{color:#406aaf;font-weight:500}
+</style>
+</head>
+<body>
+  <div class="canvas">
+    <div class="grid"></div>
+    <div class="grain"></div>
+
+    <div class="top">
+      <span class="pill"><span class="dot"></span>By the Numbers · 07</span>
+      <span>Issue / 04 · 06·11·2026</span>
+    </div>
+
+    <div class="eyebrow"><span class="bar"></span> Lorem Ipsum Index</div>
+
+    <div class="num-wrap">
+      <div class="num">73<span class="pct">%</span></div>
+    </div>
+
+    <div class="side">SOURCE · LOREM IPSUM RESEARCH · 2026</div>
+
+    <div class="accent-bar"></div>
+
+    <div class="lower">
+      <h2>Of <em>Oregonians</em> say it's time for sed do eiusmod tempor.</h2>
+      <div class="deck">
+        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea.
+        <div class="src">— Lorem Polling · n = 1,204</div>
+      </div>
+    </div>
+
+    <div class="bot">
+      <span><b>@JADEFORCONGRESS</b> · OR-05</span>
+      <span>The data is loud — let's listen.</span>
+      <span>№ 07 / 10</span>
+    </div>
+  </div>
+</body>
+</html>

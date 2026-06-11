@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Jade Oregon — Social Media Campaign Pack</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --ink:#0a1226;
+    --paper:#fdf6e6;
+    --saffron:#f7dd7d;
+    --cobalt:#406aaf;
+    --cream:#ffe8be;
+    --line:rgba(255,232,190,.18);
+  }
+  html,body{height:100%}
+  body{
+    background:
+      radial-gradient(80% 50% at 10% 0%, rgba(64,106,175,.25), transparent 60%),
+      radial-gradient(60% 60% at 100% 100%, rgba(247,221,125,.15), transparent 60%),
+      linear-gradient(180deg,#070c1c 0%, #04060e 100%);
+    color:var(--paper);
+    font-family:'Space Grotesk',system-ui,sans-serif;
+    min-height:100%;
+  }
+  .grain{
+    position:fixed;inset:0;pointer-events:none;z-index:0;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/></svg>");
+    opacity:.4;mix-blend-mode:overlay;
+  }
+
+  header{
+    position:relative;z-index:2;
+    max-width:1280px;margin:0 auto;padding:80px 48px 48px;
+  }
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:14px;
+    font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.32em;text-transform:uppercase;
+    color:var(--saffron);margin-bottom:24px;
+  }
+  .eyebrow .dot{width:8px;height:8px;border-radius:50%;background:var(--saffron);box-shadow:0 0 16px var(--saffron)}
+  .eyebrow .bar{width:60px;height:1px;background:var(--saffron);opacity:.7}
+
+  h1{
+    font-family:'Instrument Serif',serif;font-weight:400;
+    font-size:clamp(48px, 7vw, 110px);line-height:.96;letter-spacing:-.022em;
+    color:var(--paper);max-width:980px;
+  }
+  h1 em{font-style:italic;color:var(--saffron)}
+
+  .lede{
+    margin-top:28px;max-width:680px;font-size:18px;line-height:1.55;color:rgba(255,232,190,.7);
+  }
+
+  .meta-row{
+    margin-top:48px;padding-top:24px;border-top:1px solid var(--line);
+    display:grid;grid-template-columns:repeat(4, 1fr);gap:24px;
+  }
+  .meta-row .cell{
+    font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.28em;text-transform:uppercase;
+    color:rgba(255,232,190,.6);
+  }
+  .meta-row .cell b{display:block;font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;font-size:22px;color:var(--paper);letter-spacing:-.01em;text-transform:none;margin-top:6px}
+
+  section.deck{
+    position:relative;z-index:2;
+    max-width:1280px;margin:0 auto;padding:64px 48px 24px;
+  }
+  .section-title{
+    display:flex;align-items:baseline;justify-content:space-between;gap:24px;
+    padding-bottom:18px;border-bottom:1px solid var(--line);margin-bottom:36px;
+  }
+  .section-title h2{
+    font-family:'Instrument Serif',serif;font-weight:400;font-size:42px;letter-spacing:-.015em;
+  }
+  .section-title h2 em{font-style:italic;color:var(--saffron)}
+  .section-title .count{
+    font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.28em;text-transform:uppercase;
+    color:rgba(255,232,190,.55);
+  }
+
+  .grid-feed{
+    display:grid;grid-template-columns:repeat(3, 1fr);gap:32px;
+  }
+  .grid-story{
+    display:grid;grid-template-columns:repeat(5, 1fr);gap:24px;
+  }
+  @media (max-width: 1100px){
+    .grid-feed{grid-template-columns:repeat(2, 1fr)}
+    .grid-story{grid-template-columns:repeat(3, 1fr)}
+  }
+  @media (max-width: 720px){
+    .grid-feed{grid-template-columns:1fr}
+    .grid-story{grid-template-columns:repeat(2, 1fr)}
+  }
+
+  .card{
+    position:relative;display:block;text-decoration:none;color:inherit;
+    border:1px solid var(--line);
+    background:rgba(255,232,190,.02);
+    overflow:hidden;
+  }
+  .card .thumb{
+    position:relative;width:100%;background:#0a1226;overflow:hidden;
+  }
+  .card.feed .thumb{aspect-ratio:1/1}
+  .card.story .thumb{aspect-ratio:9/16}
+  .card .thumb iframe{
+    border:0;display:block;
+    width:1080px;height:1080px;
+    transform-origin:top left;pointer-events:none;
+  }
+  .card.feed .thumb iframe{transform:scale(.385)}
+  .card.story .thumb iframe{
+    width:540px;height:960px;transform:scale(.42);
+  }
+
+  .card .meta{
+    padding:18px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;
+    border-top:1px solid var(--line);
+  }
+  .card .meta .num{
+    font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.32em;color:var(--saffron);
+  }
+  .card .meta .name{
+    font-family:'Instrument Serif',serif;font-style:italic;font-size:18px;letter-spacing:-.01em;color:var(--paper);
+  }
+  .card .meta .open{
+    font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.24em;text-transform:uppercase;
+    color:rgba(255,232,190,.55);
+  }
+
+  footer{
+    position:relative;z-index:2;
+    max-width:1280px;margin:0 auto;padding:64px 48px 80px;
+    display:flex;justify-content:space-between;align-items:center;gap:24px;
+    border-top:1px solid var(--line);margin-top:64px;
+    font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.28em;text-transform:uppercase;
+    color:rgba(255,232,190,.6);
+  }
+  footer b{color:var(--saffron);font-weight:500}
+
+  /* fancy corner brackets on cards */
+  .card::before, .card::after{
+    content:"";position:absolute;width:10px;height:10px;border-color:rgba(247,221,125,.55);z-index:5;
+  }
+  .card::before{top:8px;left:8px;border-top:1px solid;border-left:1px solid}
+  .card::after{bottom:8px;right:8px;border-bottom:1px solid;border-right:1px solid}
+</style>
+</head>
+<body>
+  <div class="grain"></div>
+
+  <header>
+    <div class="eyebrow"><span class="dot"></span> Campaign Pack · 2026 <span class="bar"></span> Jade Oregon</div>
+    <h1>A campaign in <em>20 frames.</em><br>Designed for the feed.</h1>
+    <p class="lede">A complete cinematic, agency-quality social pack — ten 1:1 feed posts and ten 9:16 stories, each composed as a standalone creative. Click any tile to open the export-ready file.</p>
+
+    <div class="meta-row">
+      <div class="cell">Brand<b>Jade Oregon · OR-05</b></div>
+      <div class="cell">Pack<b>20 Creatives</b></div>
+      <div class="cell">Formats<b>1:1 · 9:16</b></div>
+      <div class="cell">Edition<b>Vol. 04 · 2026</b></div>
+    </div>
+  </header>
+
+  <section class="deck">
+    <div class="section-title">
+      <h2>I. Feed <em>Posts</em></h2>
+      <span class="count">10 × 1080 × 1080 · Export Ready</span>
+    </div>
+    <div class="grid-feed">
+      <a class="card feed" href="feed-01-quote.html" target="_blank"><div class="thumb"><iframe src="feed-01-quote.html"></iframe></div><div class="meta"><span class="num">01</span><span class="name">Editorial Quote</span><span class="open">Open →</span></div></a>
+      <a class="card feed" href="feed-02-announcement.html" target="_blank"><div class="thumb"><iframe src="feed-02-announcement.html"></iframe></div><div class="meta"><span class="num">02</span><span class="name">Announcement</span><span class="open">Open →</span></div></a>
+      <a class="card feed" href="feed-03-campaign-portrait.html" target="_blank"><div class="thumb"><iframe src="feed-03-campaign-portrait.html"></iframe></div><div class="meta"><span class="num">03</span><span class="name">Campaign Portrait</span><span class="open">Open →</span></div></a>
+      <a class="card feed" href="feed-04-event-poster.html" target="_blank"><div class="thumb"><iframe src="feed-04-event-poster.html"></iframe></div><div class="meta"><span class="num">04</span><span class="name">Event Poster</span><span class="open">Open →</span></div></a>
+      <a class="card feed" href="feed-05-testimonial-card.html" target="_blank"><div class="thumb"><iframe src="feed-05-testimonial-card.html"></iframe></div><div class="meta"><span class="num">05</span><span class="name">Testimonial</span><span class="open">Open →</span></div></a>
+      <a class="card feed" href="feed-06-awareness-abstract.html" target="_blank"><div class="thumb"><iframe src="feed-06-awareness-abstract.html"></iframe></div><div class="meta"><span class="num">06</span><span class="name">Awareness</span><span class="open">Open →</span></div></a>
+      <a class="card feed" href="feed-07-statistic-bold.html" target="_blank"><div class="thumb"><iframe src="feed-07-statistic-bold.html"></iframe></div><div class="meta"><span class="num">07</span><span class="name">Statistic</span><span class="open">Open →</span></div></a>
+      <a class="card feed" href="feed-08-community-grid.html" target="_blank"><div class="thumb"><iframe src="feed-08-community-grid.html"></iframe></div><div class="meta"><span class="num">08</span><span class="name">Community Impact</span><span class="open">Open →</span></div></a>
+      <a class="card feed" href="feed-09-cta-cinematic.html" target="_blank"><div class="thumb"><iframe src="feed-09-cta-cinematic.html"></iframe></div><div class="meta"><span class="num">09</span><span class="name">Cinematic CTA</span><span class="open">Open →</span></div></a>
+      <a class="card feed" href="feed-10-brand-monogram.html" target="_blank"><div class="thumb"><iframe src="feed-10-brand-monogram.html"></iframe></div><div class="meta"><span class="num">10</span><span class="name">Brand Monogram</span><span class="open">Open →</span></div></a>
+    </div>
+  </section>
+
+  <section class="deck">
+    <div class="section-title">
+      <h2>II. <em>Stories</em></h2>
+      <span class="count">10 × 1080 × 1920 · Export Ready</span>
+    </div>
+    <div class="grid-story">
+      <a class="card story" href="story-01-quote.html" target="_blank"><div class="thumb"><iframe src="story-01-quote.html"></iframe></div><div class="meta"><span class="num">01</span><span class="name">Quote</span><span class="open">→</span></div></a>
+      <a class="card story" href="story-02-countdown.html" target="_blank"><div class="thumb"><iframe src="story-02-countdown.html"></iframe></div><div class="meta"><span class="num">02</span><span class="name">Countdown</span><span class="open">→</span></div></a>
+      <a class="card story" href="story-03-cinematic-cover.html" target="_blank"><div class="thumb"><iframe src="story-03-cinematic-cover.html"></iframe></div><div class="meta"><span class="num">03</span><span class="name">Cinematic</span><span class="open">→</span></div></a>
+      <a class="card story" href="story-04-event-vertical.html" target="_blank"><div class="thumb"><iframe src="story-04-event-vertical.html"></iframe></div><div class="meta"><span class="num">04</span><span class="name">Event Ticket</span><span class="open">→</span></div></a>
+      <a class="card story" href="story-05-testimonial-portrait.html" target="_blank"><div class="thumb"><iframe src="story-05-testimonial-portrait.html"></iframe></div><div class="meta"><span class="num">05</span><span class="name">Voices</span><span class="open">→</span></div></a>
+      <a class="card story" href="story-06-stat-bold.html" target="_blank"><div class="thumb"><iframe src="story-06-stat-bold.html"></iframe></div><div class="meta"><span class="num">06</span><span class="name">Statistic</span><span class="open">→</span></div></a>
+      <a class="card story" href="story-07-bts-polaroid.html" target="_blank"><div class="thumb"><iframe src="story-07-bts-polaroid.html"></iframe></div><div class="meta"><span class="num">07</span><span class="name">BTS Polaroid</span><span class="open">→</span></div></a>
+      <a class="card story" href="story-08-manifesto.html" target="_blank"><div class="thumb"><iframe src="story-08-manifesto.html"></iframe></div><div class="meta"><span class="num">08</span><span class="name">Manifesto</span><span class="open">→</span></div></a>
+      <a class="card story" href="story-09-cta-swipe.html" target="_blank"><div class="thumb"><iframe src="story-09-cta-swipe.html"></iframe></div><div class="meta"><span class="num">09</span><span class="name">CTA Swipe</span><span class="open">→</span></div></a>
+      <a class="card story" href="story-10-magazine-cover.html" target="_blank"><div class="thumb"><iframe src="story-10-magazine-cover.html"></iframe></div><div class="meta"><span class="num">10</span><span class="name">Magazine</span><span class="open">→</span></div></a>
+    </div>
+  </section>
+
+  <footer>
+    <span><b>@JadeForCongress</b> · OR-05 · 2026</span>
+    <span>Designed for the feed · Pack 04 / Vol. 04</span>
+    <span>20 / 20 creatives</span>
+  </footer>
+</body>
+</html>

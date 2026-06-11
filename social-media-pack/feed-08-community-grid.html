@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Feed 08 — Community Grid</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    background:#11161e;display:grid;place-items:center;
+    font-family:'Space Grotesk',system-ui,sans-serif;padding:48px;
+  }
+  .canvas{
+    width:1080px;height:1080px;position:relative;overflow:hidden;
+    background:#0a1226;color:#ffe8be;
+    box-shadow:0 60px 140px -40px rgba(0,0,0,.6);
+    display:grid;grid-template-rows:80px 1fr 80px;
+  }
+  .grain{
+    position:absolute;inset:0;pointer-events:none;z-index:50;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/></svg>");
+    opacity:.3;mix-blend-mode:overlay;
+  }
+
+  /* TOP BAR — dedicated row above the collage */
+  .top-bar{
+    position:relative;z-index:6;
+    display:flex;justify-content:space-between;align-items:center;
+    padding:0 56px;background:#0a1226;
+    font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.32em;text-transform:uppercase;
+    color:rgba(255,232,190,.7);
+    border-bottom:1px solid rgba(255,232,190,.12);
+  }
+  .top-bar b{color:#f7dd7d;font-weight:500}
+  .top-bar .rec{display:inline-flex;align-items:center;gap:10px}
+  .top-bar .rec .dot{width:8px;height:8px;border-radius:50%;background:#d23a2a;box-shadow:0 0 0 4px rgba(210,58,42,.18)}
+
+  /* COLLAGE — middle band only, no top/bottom strip overlap */
+  .collage{
+    position:relative;
+    display:grid;grid-template-columns:1.2fr 1fr 1fr;grid-template-rows:1fr 1fr 1fr;
+    gap:2px;background:#0a1226;
+  }
+  .tile{position:relative;overflow:hidden;background:#0a1226}
+  .tile::before{
+    content:"";position:absolute;inset:0;
+    background-image:linear-gradient(180deg, rgba(10,18,38,.18), rgba(10,18,38,.78));
+    z-index:2;
+  }
+  .tile img{
+    width:100%;height:100%;object-fit:cover;display:block;
+    filter:contrast(1.05) saturate(.8);
+  }
+  .t1{grid-column:1;grid-row:1/3}
+  .t2{grid-column:2/4;grid-row:1}
+  .t3{grid-column:2;grid-row:2}
+  .t4{grid-column:3;grid-row:2/4}
+  .t5{grid-column:1;grid-row:3}
+  .t6{grid-column:2;grid-row:3}
+
+  .tile .lbl{
+    position:absolute;bottom:14px;left:14px;z-index:5;
+    font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.32em;text-transform:uppercase;
+    color:rgba(255,232,190,.9);
+    background:rgba(10,18,38,.7);backdrop-filter:blur(6px);
+    padding:6px 12px;border:1px solid rgba(255,232,190,.18);
+  }
+  .tile .stamp{
+    position:absolute;top:14px;right:14px;z-index:5;color:#f7dd7d;
+    font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.32em;
+  }
+
+  /* OVERLAY PANEL — centered, doesn't extend beyond collage */
+  .panel{
+    position:absolute;left:60px;right:60px;top:50%;transform:translateY(-50%);
+    z-index:30;text-align:center;
+    padding:48px 44px;
+    background:rgba(10,18,38,.5);
+    backdrop-filter:blur(14px) saturate(120%);
+    border:1px solid rgba(255,232,190,.22);
+    box-shadow:0 40px 80px -20px rgba(0,0,0,.65);
+  }
+  .panel .kicker{
+    font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.32em;text-transform:uppercase;
+    color:#f7dd7d;margin-bottom:20px;display:inline-flex;align-items:center;gap:14px;
+  }
+  .panel .kicker .b{width:36px;height:1px;background:#f7dd7d}
+  .panel h1{
+    font-family:'Instrument Serif',serif;font-weight:400;
+    font-size:88px;line-height:1.0;letter-spacing:-.015em;color:#fdf6e6;
+  }
+  .panel h1 em{font-style:italic;color:#f7dd7d}
+  .panel p{
+    margin:24px auto 0;max-width:540px;color:rgba(255,232,190,.78);font-size:16px;line-height:1.55;
+  }
+  .panel .row{
+    margin-top:30px;display:flex;justify-content:center;gap:16px;align-items:center;
+    font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.28em;text-transform:uppercase;
+    color:rgba(255,232,190,.75);
+  }
+  .panel .row .pip{width:6px;height:6px;background:#f7dd7d;border-radius:50%}
+
+  /* BOTTOM BAR — own row below collage */
+  .bot-bar{
+    position:relative;z-index:6;
+    display:flex;justify-content:space-between;align-items:center;
+    padding:0 56px;background:#0a1226;
+    font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.32em;text-transform:uppercase;
+    color:rgba(255,232,190,.7);
+    border-top:1px solid rgba(255,232,190,.12);
+  }
+  .bot-bar b{color:#f7dd7d;font-weight:500}
+</style>
+</head>
+<body>
+  <div class="canvas">
+    <header class="top-bar">
+      <span class="rec"><span class="dot"></span> REC · 24 COUNTIES</span>
+      <span>FILM ROLL <b>№ 008</b> / 2026</span>
+    </header>
+
+    <section class="collage">
+      <div class="tile t1"><img src="https://picsum.photos/seed/community-01a/700/900" alt="" /><span class="stamp">★ 01</span><span class="lbl">Salem</span></div>
+      <div class="tile t2"><img src="https://picsum.photos/seed/community-02/900/500" alt="" /><span class="stamp">★ 02</span><span class="lbl">Eugene</span></div>
+      <div class="tile t3"><img src="https://picsum.photos/seed/community-03/500/500" alt="" /><span class="lbl">Springfield</span></div>
+      <div class="tile t4"><img src="https://picsum.photos/seed/community-04/500/800" alt="" /><span class="stamp">★ 04</span><span class="lbl">Hood River</span></div>
+      <div class="tile t5"><img src="https://picsum.photos/seed/community-05/500/500" alt="" /><span class="lbl">Bend</span></div>
+      <div class="tile t6"><img src="https://picsum.photos/seed/community-06/500/500" alt="" /><span class="stamp">★ 06</span><span class="lbl">Madras</span></div>
+
+      <div class="panel">
+        <div class="kicker"><span class="b"></span> Community Impact <span class="b"></span></div>
+        <h1>Lorem ipsum,<br><em>dolor sit amet.</em></h1>
+        <p>Consectetur adipiscing elit — sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <div class="row"><span>24 Counties</span><span class="pip"></span><span>18 Months</span><span class="pip"></span><span>1 Oregon</span></div>
+      </div>
+    </section>
+
+    <footer class="bot-bar">
+      <span>@JadeForCongress</span>
+      <span><b>#FieldNotes</b> · Vol. 08</span>
+      <span>Jadeoregon.com</span>
+    </footer>
+
+    <div class="grain"></div>
+  </div>
+</body>
+</html>

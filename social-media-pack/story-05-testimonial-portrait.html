@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Story 05 — Testimonial Portrait</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    background:#11161e;display:grid;place-items:center;
+    font-family:'Space Grotesk',system-ui,sans-serif;padding:48px;
+  }
+  .canvas{
+    width:540px;height:960px;position:relative;overflow:hidden;
+    background:#0a1226;color:#fdf6e6;
+    box-shadow:0 60px 140px -40px rgba(0,0,0,.6);
+  }
+  .photo{
+    position:absolute;inset:0;
+    background-image:
+      linear-gradient(180deg, rgba(10,18,38,.05) 0%, rgba(10,18,38,.4) 50%, rgba(10,18,38,.95) 100%),
+      url("https://picsum.photos/seed/jade-story-testimonial/700/1200");
+    background-size:cover;background-position:center 28%;
+    filter:contrast(1.05) saturate(.8) grayscale(.18);
+  }
+  .grade{
+    position:absolute;inset:0;mix-blend-mode:color;
+    background:linear-gradient(180deg, #1a3060 0%, transparent 35%, #f7dd7d 100%);
+    opacity:.3;
+  }
+  .grain{
+    position:absolute;inset:0;pointer-events:none;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/></svg>");
+    opacity:.5;mix-blend-mode:overlay;
+  }
+
+  /* editorial top */
+  .top-bar{
+    position:absolute;top:60px;left:30px;right:30px;
+    display:flex;justify-content:space-between;align-items:center;
+    font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.32em;text-transform:uppercase;
+    color:rgba(255,232,190,.78);
+  }
+  .top-bar b{color:#f7dd7d;font-weight:500}
+
+  /* magazine tag rotated */
+  .tag-rot{
+    position:absolute;top:150px;right:-22px;transform:rotate(90deg);transform-origin:top right;
+    font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.45em;text-transform:uppercase;
+    color:rgba(255,232,190,.7);
+  }
+  .tag-rot b{color:#f7dd7d;font-weight:500}
+
+  .quote-mark{
+    position:absolute;top:54%;left:50%;transform:translate(-50%,-50%);
+    font-family:'Instrument Serif',serif;font-style:italic;
+    font-size:520px;line-height:.5;color:#f7dd7d;opacity:.12;pointer-events:none;
+  }
+
+  .card{
+    position:absolute;left:24px;right:24px;bottom:130px;
+    padding:28px 26px;
+    background:rgba(10,18,38,.55);backdrop-filter:blur(14px) saturate(120%);
+    border:1px solid rgba(255,232,190,.2);
+    box-shadow:0 30px 60px -20px rgba(0,0,0,.6);
+  }
+  .card .stars{
+    color:#f7dd7d;letter-spacing:.4em;font-size:14px;margin-bottom:14px;
+  }
+  .card h2{
+    font-family:'Instrument Serif',serif;font-weight:400;
+    font-size:30px;line-height:1.15;letter-spacing:-.012em;color:#fdf6e6;
+  }
+  .card h2 em{font-style:italic;color:#f7dd7d}
+  .card .who{
+    margin-top:20px;display:flex;align-items:center;gap:12px;
+    padding-top:18px;border-top:1px solid rgba(255,232,190,.18);
+  }
+  .who .face{
+    width:42px;height:42px;border-radius:50%;
+    background-image:url("https://picsum.photos/seed/jade-fan-portrait-2/200/200");
+    background-size:cover;background-position:center;
+    box-shadow:0 0 0 1px rgba(255,232,190,.4);
+  }
+  .who .meta .name{font-size:13px;font-weight:500;color:#fdf6e6;line-height:1.2}
+  .who .meta .role{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,232,190,.6);margin-top:4px}
+
+  /* editorial bottom */
+  .bot-bar{
+    position:absolute;bottom:54px;left:30px;right:30px;
+    display:flex;justify-content:space-between;align-items:center;
+    padding-top:14px;border-top:1px solid rgba(255,232,190,.22);
+    font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.32em;text-transform:uppercase;
+    color:rgba(255,232,190,.68);
+  }
+  .bot-bar b{color:#f7dd7d;font-weight:500}
+</style>
+</head>
+<body>
+  <div class="canvas">
+    <div class="photo"></div>
+    <div class="grade"></div>
+
+    <div class="top-bar">
+      <span><b>VOICES OF OR-05</b></span>
+      <span>№ 05 / 10</span>
+    </div>
+
+    <div class="tag-rot">EDITION · <b>VOL. 04</b></div>
+
+    <div class="quote-mark">"</div>
+
+    <div class="card">
+      <div class="stars">★ ★ ★ ★ ★</div>
+      <h2>"Lorem ipsum dolor sit amet, <em>consectetur</em> — adipiscing elit sed do eiusmod."</h2>
+      <div class="who">
+        <div class="face"></div>
+        <div class="meta">
+          <div class="name">Elena Vasquez</div>
+          <div class="role">Teacher · Eugene, OR</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bot-bar">
+      <span><b>JADE · OR-05</b></span>
+      <span>Voices · 2026</span>
+    </div>
+
+    <div class="grain"></div>
+  </div>
+</body>
+</html>

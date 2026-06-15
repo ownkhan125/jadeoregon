@@ -41,7 +41,11 @@
       "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3003/social-media-posts)",
       "Bash(curl -s -o /dev/null -w \"3002:%{http_code}\\\\n\" --max-time 3 http://localhost:3002/social-media-posts)",
       "Bash(curl -s -o /dev/null -w \"3003:%{http_code}\\\\n\" --max-time 5 http://localhost:3003/social-media-posts)",
-      "Bash(curl *)"
+      "Bash(curl *)",
+      "Bash(grep -oE \"Error[^<]{0,500}\" /tmp/page2.html)",
+      "Bash(grep -oE \"\\([A-Z][a-zA-Z]+Error|message[^<]{0,300}\\)\" /tmp/page2.html)",
+      "Bash(npx eslint *)",
+      "Bash(grep -oE \"\\(message|stack\\)\\\\\":\\\\\"[^\\\\\"]{0,400}\" /tmp/p4.html)"
     ]
   }
 }

@@ -191,17 +191,24 @@ export function SocialPostDetail({ post, prev, next }) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-[80] flex items-center justify-center bg-ink/90 backdrop-blur-md"
+            onClick={(e) => {
+              if (e.target === e.currentTarget) setFullView(false);
+            }}
+            className="fixed inset-0 z-[80] flex items-center justify-center overflow-y-auto bg-ink/90 p-4 backdrop-blur-md sm:p-8"
             role="dialog"
             aria-modal="true"
             aria-label={`${post.title} full view`}
           >
-            {/* Close button */}
+            {/* Close button — explicit z-index so it sits above the
+                scaled content's stacking context. */}
             <button
               type="button"
-              onClick={() => setFullView(false)}
+              onClick={(e) => {
+                e.stopPropagation();
+                setFullView(false);
+              }}
               aria-label="Close full view"
-              className="absolute right-5 top-5 grid h-11 w-11 place-items-center rounded-full border border-paper/30 bg-paper/[0.06] text-paper backdrop-blur transition-colors hover:border-saffron hover:bg-paper/10 hover:text-saffron"
+              className="absolute right-5 top-5 z-[90] grid h-11 w-11 place-items-center rounded-full border border-paper/30 bg-ink/60 text-paper backdrop-blur transition-colors hover:border-saffron hover:bg-paper/10 hover:text-saffron focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saffron focus-visible:ring-offset-2 focus-visible:ring-offset-ink"
             >
               <svg viewBox="0 0 16 16" className="h-4 w-4" fill="none" aria-hidden>
                 <path
@@ -213,7 +220,7 @@ export function SocialPostDetail({ post, prev, next }) {
               </svg>
             </button>
 
-            <span className="absolute left-5 top-5 font-mono text-[10px] uppercase tracking-[0.28em] text-paper/65">
+            <span className="pointer-events-none absolute left-5 top-5 z-[85] font-mono text-[10px] uppercase tracking-[0.28em] text-paper/65">
               {post.format === "feed" ? "Feed" : "Story"} · {post.number} ·{" "}
               {post.dimensions.width} × {post.dimensions.height}
             </span>
@@ -223,30 +230,24 @@ export function SocialPostDetail({ post, prev, next }) {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.96, opacity: 0 }}
               transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-              className="relative flex h-full w-full items-center justify-center p-4 sm:p-8"
+              onClick={(e) => e.stopPropagation()}
+              className="relative my-auto w-full overflow-hidden rounded-xl shadow-[0_60px_120px_-30px_rgba(0,0,0,0.7)]"
+              style={{
+                maxWidth: isStory ? "min(100%, 56vh)" : "min(100%, 88vh)",
+                maxHeight: isStory ? "95vh" : "88vh",
+                aspectRatio: `${post.dimensions.width} / ${post.dimensions.height}`,
+              }}
             >
-              <div
-                className="relative h-full w-full"
-                style={{
-                  maxWidth: isStory ? "min(100%, 56vh)" : "min(100%, 88vh)",
-                  maxHeight: isStory ? "min(100%, 95vh)" : "min(100%, 88vh)",
-                  aspectRatio: `${post.dimensions.width} / ${post.dimensions.height}`,
-                  margin: "auto",
-                }}
-              >
-                <div className="h-full w-full overflow-hidden rounded-xl shadow-[0_60px_120px_-30px_rgba(0,0,0,0.7)]">
-                  <SocialPostFrame
-                    src={src}
-                    width={post.dimensions.width}
-                    height={post.dimensions.height}
-                    title={`${post.title} (full view)`}
-                    interactive
-                  />
-                </div>
-              </div>
+              <SocialPostFrame
+                src={src}
+                width={post.dimensions.width}
+                height={post.dimensions.height}
+                title={`${post.title} (full view)`}
+                interactive
+              />
             </motion.div>
 
-            <span className="absolute bottom-5 left-1/2 -translate-x-1/2 font-mono text-[10px] uppercase tracking-[0.28em] text-paper/55">
+            <span className="pointer-events-none absolute bottom-5 left-1/2 z-[85] -translate-x-1/2 font-mono text-[10px] uppercase tracking-[0.28em] text-paper/55">
               Esc · Close
             </span>
           </motion.div>

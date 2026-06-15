@@ -3,3 +3,9 @@ export { priorities } from "./priorities";
 export { endorsements, endorsementCategories } from "./endorsements";
 export { events } from "./events";
 export { images } from "./images";
+export {
+  socialPosts,
+  socialCategories,
+  getSocialPost,
+  getSocialPostNeighbors,
+} from "./socialPosts";

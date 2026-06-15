@@ -28,7 +28,20 @@
       "Bash(curl -s -L -A \"Mozilla/5.0\" \"https://www.drkahlforcongress.com/events/6a1c6e092de27d007d239c17\" -o /tmp/event1.html -w \"event:%{http_code}\\\\n\")",
       "Bash(node *)",
       "Bash(taskkill /F /PID 8608)",
-      "Bash(cmd.exe //c \"taskkill /F /PID 8608\")"
+      "Bash(cmd.exe //c \"taskkill /F /PID 8608\")",
+      "Bash(mkdir -p C:/Users/General/Documents/GitHub/Jadeoregon/public/social-media-pack)",
+      "Bash(cp C:/Users/General/Documents/GitHub/Jadeoregon/social-media-pack/feed-*.html C:/Users/General/Documents/GitHub/Jadeoregon/social-media-pack/story-*.html C:/Users/General/Documents/GitHub/Jadeoregon/public/social-media-pack/)",
+      "Bash(curl -s -o /dev/null -w \"3000: %{http_code}\\\\n\" http://localhost:3000/)",
+      "Bash(curl -s -o /dev/null -w \"3001: %{http_code}\\\\n\" http://localhost:3001/)",
+      "Bash(curl -s http://localhost:3000/)",
+      "Bash(curl -s http://localhost:3001/)",
+      "Bash(tee /tmp/jade-dev.log)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3002/)",
+      "Bash(curl -s -o /dev/null -w \"3002: %{http_code}\\\\n3003: \" http://localhost:3002/social-media-posts)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3003/social-media-posts)",
+      "Bash(curl -s -o /dev/null -w \"3002:%{http_code}\\\\n\" --max-time 3 http://localhost:3002/social-media-posts)",
+      "Bash(curl -s -o /dev/null -w \"3003:%{http_code}\\\\n\" --max-time 5 http://localhost:3003/social-media-posts)",
+      "Bash(curl *)"
     ]
   }
 }

@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Feed 09 — CTA Cinematic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    background:#11161e;display:grid;place-items:center;
+    font-family:'Space Grotesk',system-ui,sans-serif;padding:48px;
+  }
+  .canvas{
+    width:1080px;height:1080px;position:relative;overflow:hidden;
+    background:#04060e;color:#ffe8be;
+    box-shadow:0 60px 140px -40px rgba(0,0,0,.6);
+  }
+  /* full bleed photo */
+  .bg{
+    position:absolute;inset:0;
+    background-image:
+      linear-gradient(180deg, rgba(4,6,14,.1) 0%, rgba(4,6,14,.7) 60%, rgba(4,6,14,.95) 100%),
+      linear-gradient(90deg, rgba(4,6,14,.55), rgba(4,6,14,0) 50%),
+      url("https://picsum.photos/seed/oregon-landscape-mtn/1200/1200");
+    background-size:cover;background-position:center;
+    filter:contrast(1.1) saturate(.85);
+  }
+  /* atmospheric gradient overlay */
+  .atmos{
+    position:absolute;inset:0;
+    background:
+      radial-gradient(80% 50% at 50% 100%, rgba(247,221,125,.18), transparent 60%),
+      radial-gradient(60% 50% at 20% 20%, rgba(64,106,175,.2), transparent 60%);
+    mix-blend-mode:screen;
+  }
+  .grain{
+    position:absolute;inset:0;pointer-events:none;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/></svg>");
+    opacity:.45;mix-blend-mode:overlay;
+  }
+  /* scanlines (faint) */
+  .scan{
+    position:absolute;inset:0;pointer-events:none;
+    background:repeating-linear-gradient(0deg, rgba(255,255,255,.02) 0 2px, transparent 2px 4px);
+    mix-blend-mode:overlay;
+  }
+
+  /* corner ticks */
+  .tick{position:absolute;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.32em;color:rgba(255,232,190,.5);text-transform:uppercase}
+  .t-tl{top:46px;left:46px}
+  .t-tr{top:46px;right:46px;text-align:right}
+  .t-bl{bottom:46px;left:46px}
+  .t-br{bottom:46px;right:46px;text-align:right}
+
+  /* top hud */
+  .hud{
+    position:absolute;top:46px;left:50%;transform:translateX(-50%);
+    display:flex;align-items:center;gap:14px;
+    font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.28em;color:rgba(255,232,190,.65);text-transform:uppercase;
+  }
+  .hud .pulse{width:9px;height:9px;border-radius:50%;background:#d23a2a;box-shadow:0 0 0 6px rgba(210,58,42,.2)}
+
+  /* MAIN — vertical center */
+  .stage{
+    position:absolute;left:80px;right:80px;top:42%;transform:translateY(-50%);
+    text-align:center;
+  }
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:14px;
+    padding:9px 18px;background:rgba(255,232,190,.08);border:1px solid rgba(255,232,190,.18);
+    font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:#f7dd7d;
+    margin-bottom:30px;
+  }
+  .eyebrow .dot{width:6px;height:6px;background:#f7dd7d;border-radius:50%;box-shadow:0 0 12px #f7dd7d}
+  .title{
+    font-family:'Anton',sans-serif;font-weight:400;
+    font-size:230px;line-height:.85;letter-spacing:-.01em;text-transform:uppercase;
+    background:linear-gradient(180deg, #fdf6e6 0%, #ffe8be 50%, #f7dd7d 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    text-shadow:0 30px 80px rgba(247,221,125,.15);
+  }
+  .title .row{display:block}
+  .lead{
+    margin:34px auto 0;max-width:560px;
+    font-size:18px;line-height:1.55;color:rgba(255,232,190,.75);
+  }
+
+  /* CTA button — huge */
+  .cta-wrap{
+    position:absolute;bottom:150px;left:0;right:0;display:flex;justify-content:center;
+  }
+  .cta{
+    display:inline-flex;align-items:center;gap:18px;
+    padding:26px 48px 26px 52px;border-radius:999px;
+    background:#f7dd7d;color:#0a1226;
+    font-family:'Space Grotesk';font-weight:600;font-size:22px;letter-spacing:.04em;text-transform:uppercase;
+    box-shadow:0 30px 80px -20px rgba(247,221,125,.55), inset 0 1px 0 rgba(255,255,255,.6);
+  }
+  .cta .arrow{
+    display:inline-grid;place-items:center;width:38px;height:38px;border-radius:50%;background:#0a1226;color:#f7dd7d;
+    font-size:22px;
+  }
+
+  /* bottom line */
+  .bot-line{
+    position:absolute;bottom:80px;left:0;right:0;text-align:center;
+    font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.32em;text-transform:uppercase;
+    color:rgba(255,232,190,.55);
+  }
+</style>
+</head>
+<body>
+  <div class="canvas">
+    <div class="bg"></div>
+    <div class="atmos"></div>
+    <div class="scan"></div>
+
+    <div class="hud"><span class="pulse"></span> Now Live · OR-05 · 2026</div>
+
+    <span class="tick t-tl">№ 09 / 10</span>
+    <span class="tick t-tr">Jadeoregon.com</span>
+
+    <div class="stage">
+      <div class="eyebrow"><span class="dot"></span> A call to action</div>
+      <h1 class="title">
+        <span class="row">Lorem</span>
+        <span class="row">Ipsum.</span>
+      </h1>
+      <p class="lead">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    </div>
+
+    <div class="cta-wrap">
+      <span class="cta">Join the movement <span class="arrow">→</span></span>
+    </div>
+
+    <div class="bot-line">— Pull Out the Stops · Vol. 09 · Friends of Jade Oregon —</div>
+    <span class="tick t-bl">FRAME 09 / 10</span>
+    <span class="tick t-br">F2.0 · 35mm</span>
+
+    <div class="grain"></div>
+  </div>
+</body>
+</html>

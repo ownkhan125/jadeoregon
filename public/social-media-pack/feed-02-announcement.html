@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Feed 02 — Announcement</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    background:#11161e;display:grid;place-items:center;
+    font-family:'Space Grotesk',system-ui,sans-serif;padding:48px;
+  }
+  .canvas{
+    width:1080px;height:1080px;position:relative;overflow:hidden;
+    background:#fdf6e6;color:#0a1226;
+    box-shadow:0 60px 140px -40px rgba(0,0,0,.6);
+    display:grid;grid-template-rows:1.05fr .95fr;
+  }
+  /* TOP — cream block with massive headline */
+  .top{
+    position:relative;padding:78px 78px 0;display:flex;flex-direction:column;justify-content:space-between;
+    background:
+      radial-gradient(120% 80% at 0% 0%, rgba(247,221,125,.55), transparent 55%),
+      #fdf6e6;
+  }
+  .ribbon{
+    display:inline-flex;align-items:center;gap:14px;
+    font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.22em;text-transform:uppercase;
+    color:#0a1226;
+  }
+  .ribbon .pulse{
+    width:9px;height:9px;border-radius:50%;background:#d23a2a;
+    box-shadow:0 0 0 6px rgba(210,58,42,.18);
+  }
+  .ribbon .bar{flex:0 0 60px;height:1px;background:#0a1226;opacity:.4}
+
+  .headline{
+    font-weight:700;letter-spacing:-.03em;line-height:.92;
+    font-size:172px;
+  }
+  .headline span{display:block}
+  .headline .light{font-weight:300}
+  .headline .accent{color:#406aaf}
+
+  .top-meta{
+    display:flex;justify-content:space-between;align-items:flex-end;
+    font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.22em;text-transform:uppercase;
+    color:rgba(10,18,38,.55);padding-bottom:18px;
+  }
+
+  /* BOTTOM — dark slab with details */
+  .bot{
+    position:relative;background:#0a1226;color:#ffe8be;
+    padding:64px 78px 78px;display:grid;grid-template-columns:1fr auto;align-items:end;gap:48px;
+    overflow:hidden;
+  }
+  .bot::before{
+    content:"";position:absolute;inset:-30% -10% auto auto;width:60%;height:80%;
+    background:radial-gradient(closest-side, rgba(64,106,175,.55), transparent 70%);
+    filter:blur(20px);
+  }
+  .bot::after{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.45 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/></svg>");
+    mix-blend-mode:overlay;opacity:.35;
+  }
+  .deck{position:relative;z-index:2;max-width:520px}
+  .deck .eyebrow{
+    font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.28em;text-transform:uppercase;
+    color:#f7dd7d;margin-bottom:14px;
+  }
+  .deck p{font-size:19px;line-height:1.5;color:rgba(255,232,190,.8)}
+  .cta{
+    position:relative;z-index:2;
+    display:inline-flex;align-items:center;gap:18px;
+    padding:22px 34px;border:1px solid rgba(255,232,190,.45);border-radius:999px;
+    font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.24em;text-transform:uppercase;
+    color:#ffe8be;
+  }
+  .cta .arrow{display:inline-block;width:24px;height:1px;background:#f7dd7d;position:relative}
+  .cta .arrow::after{content:"";position:absolute;right:-1px;top:-4px;width:9px;height:9px;border-top:1px solid #f7dd7d;border-right:1px solid #f7dd7d;transform:rotate(45deg)}
+
+  /* corner marks */
+  .mark{position:absolute;width:18px;height:18px;border:1px solid currentColor;color:rgba(10,18,38,.35)}
+  .mark.tl{top:34px;left:34px;border-right:none;border-bottom:none}
+  .mark.tr{top:34px;right:34px;border-left:none;border-bottom:none}
+  .mark.bl{bottom:34px;left:34px;border-right:none;border-top:none;color:rgba(255,232,190,.4)}
+  .mark.br{bottom:34px;right:34px;border-left:none;border-top:none;color:rgba(255,232,190,.4)}
+
+  .seal{
+    position:absolute;top:78px;right:78px;
+    width:84px;height:84px;border-radius:50%;
+    border:1px solid rgba(10,18,38,.35);
+    display:grid;place-items:center;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.25em;color:rgba(10,18,38,.6);
+    text-align:center;line-height:1.3;
+  }
+</style>
+</head>
+<body>
+  <div class="canvas">
+    <span class="mark tl"></span><span class="mark tr"></span><span class="mark bl"></span><span class="mark br"></span>
+
+    <section class="top">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div class="ribbon"><span class="pulse"></span> Announcement <span class="bar"></span> 05·19·26</div>
+        <div class="seal">EST.<br>2026<br>OR-05</div>
+      </div>
+
+      <h1 class="headline">
+        <span class="light">lorem</span>
+        <span>ipsum</span>
+        <span class="accent">dolor.</span>
+      </h1>
+
+      <div class="top-meta">
+        <span>Issue №04 · Field Edition</span>
+        <span>Jadeoregon.com</span>
+      </div>
+    </section>
+
+    <section class="bot">
+      <div class="deck">
+        <div class="eyebrow">Sed do eiusmod — Tempor incididunt</div>
+        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+      </div>
+      <div class="cta">Read More <span class="arrow"></span></div>
+    </section>
+  </div>
+</body>
+</html>

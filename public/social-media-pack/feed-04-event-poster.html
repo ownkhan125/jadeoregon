@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Feed 04 — Event Poster</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    background:#11161e;display:grid;place-items:center;
+    font-family:'Space Grotesk',system-ui,sans-serif;padding:48px;
+  }
+  .canvas{
+    width:1080px;height:1080px;position:relative;overflow:hidden;
+    background:#f7dd7d;color:#0a1226;
+    box-shadow:0 60px 140px -40px rgba(0,0,0,.6);
+  }
+  /* diagonal split */
+  .split{
+    position:absolute;inset:0;
+    background:
+      linear-gradient(118deg, #f7dd7d 0% 56%, #0a1226 56% 100%);
+  }
+  /* grain */
+  .grain{
+    position:absolute;inset:0;pointer-events:none;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.7'/></svg>");
+    opacity:.18;mix-blend-mode:multiply;
+  }
+
+  /* TOP STRIP — ticket header */
+  .top{
+    position:absolute;top:0;left:0;right:0;height:78px;
+    background:#0a1226;color:#ffe8be;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:0 56px;
+    font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.32em;text-transform:uppercase;
+    z-index:5;
+  }
+  .top .ticket-edge{
+    position:absolute;left:0;right:0;bottom:-10px;height:20px;
+    background:radial-gradient(circle at 12px 0, #f7dd7d 8px, transparent 9px) 0 0/24px 20px repeat-x;
+  }
+  .top b{color:#f7dd7d;font-weight:500}
+
+  /* LEFT — date stack */
+  .date-area{
+    position:absolute;left:78px;top:170px;color:#0a1226;
+  }
+  .day-label{
+    font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.32em;text-transform:uppercase;
+    margin-bottom:18px;
+  }
+  .day-number{
+    font-family:'DM Serif Display',serif;font-size:380px;line-height:.8;letter-spacing:-.04em;
+    position:relative;display:inline-block;
+  }
+  .day-number sup{
+    font-family:'Space Grotesk';font-weight:600;font-size:54px;
+    position:absolute;top:24px;right:-58px;color:#0a1226;
+  }
+  .month-line{
+    margin-top:34px;display:flex;align-items:center;gap:18px;
+    font-family:'JetBrains Mono',monospace;font-size:14px;letter-spacing:.32em;text-transform:uppercase;
+  }
+  .month-line .pipe{width:1px;height:18px;background:#0a1226;opacity:.35}
+
+  /* LOWER LEFT — info block */
+  .info{
+    position:absolute;left:78px;bottom:96px;max-width:480px;
+  }
+  .info .label{
+    font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.32em;text-transform:uppercase;
+    color:rgba(10,18,38,.6);margin-bottom:10px;
+  }
+  .info .place{
+    font-family:'DM Serif Display',serif;font-size:46px;line-height:1;letter-spacing:-.01em;
+    margin-bottom:24px;
+  }
+  .info .place em{font-style:italic;color:#406aaf}
+  .info p{font-size:15px;line-height:1.45;color:rgba(10,18,38,.7);max-width:400px}
+
+  /* RIGHT side — dark column */
+  .right-col{
+    position:absolute;right:0;top:78px;bottom:0;width:48%;
+    color:#ffe8be;padding:80px 64px 80px 80px;
+    display:flex;flex-direction:column;justify-content:space-between;
+  }
+  .right-col .badge{
+    align-self:flex-end;
+    width:120px;height:120px;border-radius:50%;
+    border:1px dashed rgba(255,232,190,.4);
+    display:grid;place-items:center;text-align:center;
+    font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.22em;text-transform:uppercase;
+    color:#f7dd7d;line-height:1.4;position:relative;
+  }
+  .right-col .badge::before{
+    content:"★";position:absolute;top:-7px;left:50%;transform:translateX(-50%);
+    background:#0a1226;padding:0 6px;color:#f7dd7d;font-size:14px;
+  }
+  .right-col h1{
+    font-family:'DM Serif Display',serif;font-weight:400;
+    font-size:120px;line-height:.92;letter-spacing:-.02em;
+    color:#ffe8be;
+  }
+  .right-col h1 em{font-style:italic;color:#f7dd7d}
+  .right-col .lead{
+    margin-top:34px;font-size:17px;line-height:1.5;color:rgba(255,232,190,.7);
+    max-width:380px;
+  }
+  .right-col .cta-row{
+    margin-top:36px;display:flex;align-items:center;gap:16px;
+  }
+  .right-col .cta{
+    padding:18px 28px;background:#f7dd7d;color:#0a1226;border-radius:999px;
+    font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.28em;text-transform:uppercase;font-weight:500;
+  }
+  .right-col .free{
+    font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.28em;text-transform:uppercase;
+    color:rgba(255,232,190,.55);
+  }
+
+  /* perforation */
+  .perf{
+    position:absolute;left:0;right:0;top:78px;height:1px;
+    background-image:linear-gradient(90deg, #0a1226 50%, transparent 50%);background-size:14px 1px;background-repeat:repeat-x;
+    opacity:.3;z-index:6;
+  }
+
+  /* bottom dark ribbon over yellow */
+  .bot-ribbon{
+    position:absolute;left:0;bottom:0;right:0;height:42px;
+    background:#0a1226;color:#ffe8be;
+    display:flex;align-items:center;justify-content:space-between;padding:0 56px;
+    font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.32em;text-transform:uppercase;
+    z-index:5;
+  }
+</style>
+</head>
+<body>
+  <div class="canvas">
+    <div class="split"></div>
+    <div class="grain"></div>
+
+    <header class="top">
+      <span>★ Event · <b>OR-05 Town Hall</b></span>
+      <span>Free Admission · RSVP @ Jadeoregon.com</span>
+      <div class="ticket-edge"></div>
+    </header>
+    <div class="perf"></div>
+
+    <div class="date-area">
+      <div class="day-label">Saturday — Vol. 04</div>
+      <div class="day-number">18<sup>TH</sup></div>
+      <div class="month-line">
+        <span>April</span><span class="pipe"></span><span>2026</span><span class="pipe"></span><span>06:30 PM</span>
+      </div>
+    </div>
+
+    <div class="info">
+      <div class="label">— Lorem Ipsum Hall</div>
+      <div class="place">Salem <em>Civic</em><br>Auditorium</div>
+      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    </div>
+
+    <div class="right-col">
+      <div class="badge">Live<br>·<br>OR-05</div>
+      <div>
+        <h1>A <em>Town</em><br>Hall.</h1>
+        <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
+        <div class="cta-row">
+          <span class="cta">Reserve seat ›</span>
+          <span class="free">Doors @ 06:00</span>
+        </div>
+      </div>
+    </div>
+
+    <footer class="bot-ribbon">
+      <span>№ 0418 · 2026</span>
+      <span>Hosted by Friends of Jade Oregon</span>
+      <span>@JadeForCongress</span>
+    </footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Story 07 — Behind the Scenes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    background:#11161e;display:grid;place-items:center;
+    font-family:'Space Grotesk',system-ui,sans-serif;padding:48px;
+  }
+  .canvas{
+    width:540px;height:960px;position:relative;overflow:hidden;
+    background:
+      radial-gradient(70% 50% at 80% 20%, rgba(247,221,125,.45), transparent 60%),
+      radial-gradient(60% 50% at 0% 100%, rgba(64,106,175,.32), transparent 60%),
+      #fdf6e6;
+    color:#0a1226;
+    box-shadow:0 60px 140px -40px rgba(0,0,0,.6);
+  }
+  .grain{
+    position:absolute;inset:0;pointer-events:none;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.7'/></svg>");
+    opacity:.14;mix-blend-mode:multiply;
+  }
+
+  /* editorial top bar */
+  .top-bar{
+    position:absolute;top:50px;left:30px;right:30px;
+    display:flex;justify-content:space-between;align-items:center;
+    padding-bottom:14px;border-bottom:1px solid rgba(10,18,38,.2);
+    font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.32em;text-transform:uppercase;
+    color:rgba(10,18,38,.65);
+  }
+  .top-bar b{color:#0a1226;font-weight:500}
+
+  /* title block */
+  .title-block{
+    position:absolute;top:110px;left:30px;right:30px;
+  }
+  .title-block .eyebrow{
+    font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.32em;text-transform:uppercase;
+    color:rgba(10,18,38,.6);display:flex;align-items:center;gap:10px;margin-bottom:12px;
+  }
+  .title-block .eyebrow .b{width:24px;height:1px;background:#0a1226}
+  .title-block h1{
+    font-family:'Instrument Serif',serif;font-weight:400;
+    font-size:52px;line-height:1.0;letter-spacing:-.015em;color:#0a1226;
+  }
+  .title-block h1 em{font-style:italic;color:#406aaf}
+
+  /* corner stamp — moved to upper-right, out of stack zone */
+  .stamp{
+    position:absolute;top:120px;right:30px;
+    width:84px;height:84px;border-radius:50%;
+    background:#0a1226;color:#f7dd7d;
+    display:grid;place-items:center;text-align:center;
+    font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.28em;text-transform:uppercase;line-height:1.4;
+    transform:rotate(12deg);box-shadow:0 14px 28px -10px rgba(10,18,38,.45);
+  }
+  .stamp::before{content:"★";display:block;font-size:14px;margin-bottom:2px;color:#f7dd7d}
+
+  /* polaroid stack — sized so no caption ever hides behind another card */
+  .stack{
+    position:absolute;top:280px;left:0;right:0;height:480px;
+  }
+  .pola{
+    position:absolute;background:#fff;padding:10px 10px 32px;
+    box-shadow:0 18px 40px -16px rgba(10,18,38,.45);
+    width:180px;
+  }
+  .pola .img{width:100%;height:150px;background-size:cover;background-position:center;background-color:#0a1226}
+  .pola .cap{
+    margin-top:10px;font-family:'Caveat',cursive;font-size:16px;color:#0a1226;text-align:center;line-height:1.1;
+  }
+  .pola .cap b{color:#d23a2a;font-weight:700}
+  .pola::before{
+    content:"";position:absolute;top:-12px;left:50%;transform:translateX(-50%);
+    width:64px;height:22px;background:rgba(247,221,125,.85);
+    box-shadow:0 2px 6px rgba(10,18,38,.18);
+    border:1px dashed rgba(10,18,38,.18);
+  }
+  .p1{top:0;left:24px;transform:rotate(-7deg);z-index:2}
+  .p1 .img{background-image:url("https://picsum.photos/seed/bts-01/300/300")}
+  .p2{top:18px;right:24px;transform:rotate(6deg);z-index:3}
+  .p2 .img{background-image:url("https://picsum.photos/seed/bts-02/300/300")}
+  .p3{top:244px;left:50%;margin-left:-90px;transform:rotate(-2deg);z-index:4}
+  .p3 .img{background-image:url("https://picsum.photos/seed/bts-03/300/300")}
+
+  /* CAPTION BLOCK — own band below stack */
+  .caption{
+    position:absolute;left:30px;right:30px;top:780px;text-align:center;
+  }
+  .caption .badge{
+    display:inline-flex;align-items:center;gap:10px;padding:9px 16px;background:#0a1226;color:#f7dd7d;
+    font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.32em;text-transform:uppercase;
+    margin-bottom:16px;
+  }
+  .caption p{
+    font-family:'Instrument Serif',serif;font-style:italic;
+    font-size:22px;line-height:1.3;color:rgba(10,18,38,.88);
+  }
+
+  /* editorial bottom bar */
+  .bot-bar{
+    position:absolute;bottom:46px;left:30px;right:30px;
+    display:flex;justify-content:space-between;align-items:center;
+    padding-top:14px;border-top:1px solid rgba(10,18,38,.2);
+    font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.32em;text-transform:uppercase;
+    color:rgba(10,18,38,.65);
+  }
+  .bot-bar b{color:#0a1226;font-weight:500}
+</style>
+</head>
+<body>
+  <div class="canvas">
+
+    <header class="top-bar">
+      <span><b>FIELD DIARY</b> · April</span>
+      <span>BTS · Vol. 07</span>
+    </header>
+
+    <div class="title-block">
+      <div class="eyebrow"><span class="b"></span> From the road</div>
+      <h1>With <em>notes,</em><br>and dust.</h1>
+    </div>
+
+    <div class="stamp">BTS<br>Vol·07</div>
+
+    <div class="stack">
+      <div class="pola p1">
+        <div class="img"></div>
+        <div class="cap">Coffee in Coos Bay<br><b>· lorem ipsum ·</b></div>
+      </div>
+      <div class="pola p2">
+        <div class="img"></div>
+        <div class="cap">Town hall, take 04<br><b>· sed do eiusmod ·</b></div>
+      </div>
+      <div class="pola p3">
+        <div class="img"></div>
+        <div class="cap">Sunday morning,<br>somewhere near Bend.</div>
+      </div>
+    </div>
+
+    <div class="caption">
+      <div class="badge">★ Lorem Ipsum</div>
+      <p>"Dolor sit amet, consectetur — adipiscing elit."</p>
+    </div>
+
+    <footer class="bot-bar">
+      <span><b>JADE · OR-05</b></span>
+      <span>Behind the Scenes · 2026</span>
+    </footer>
+
+    <div class="grain"></div>
+  </div>
+</body>
+</html>

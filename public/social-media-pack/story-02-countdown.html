@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Story 02 — Countdown</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    background:#11161e;display:grid;place-items:center;
+    font-family:'Space Grotesk',system-ui,sans-serif;padding:48px;
+  }
+  .canvas{
+    width:540px;height:960px;position:relative;overflow:hidden;
+    background:#fdf6e6;color:#0a1226;
+    box-shadow:0 60px 140px -40px rgba(0,0,0,.6);
+    display:grid;grid-template-rows:60% 40%;
+  }
+  /* TOP band — dark */
+  .band{
+    position:relative;
+    background:
+      radial-gradient(80% 60% at 0% 100%, rgba(247,221,125,.65), transparent 60%),
+      linear-gradient(180deg, #0a1226 0%, #14224a 100%);
+    color:#ffe8be;overflow:hidden;
+  }
+  .band::after{
+    content:"";position:absolute;inset:0;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.5 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/></svg>");
+    opacity:.45;mix-blend-mode:overlay;pointer-events:none;
+  }
+  .top-bar{
+    position:absolute;top:54px;left:30px;right:30px;
+    display:flex;justify-content:space-between;align-items:center;
+    font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.32em;text-transform:uppercase;
+    color:rgba(255,232,190,.75);
+  }
+  .top-bar b{color:#f7dd7d;font-weight:500}
+
+  .cal-label{
+    position:absolute;top:120px;left:0;right:0;text-align:center;
+    font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.45em;text-transform:uppercase;
+    color:rgba(255,232,190,.75);
+  }
+  .cal-label .dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#f7dd7d;margin:0 10px;vertical-align:middle;box-shadow:0 0 12px #f7dd7d}
+
+  .countdown{
+    position:absolute;top:160px;left:0;right:0;text-align:center;color:#fdf6e6;
+  }
+  .countdown .label{
+    font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.32em;text-transform:uppercase;
+    color:#f7dd7d;margin-bottom:8px;
+  }
+  .countdown .number{
+    font-family:'DM Serif Display',serif;font-weight:400;font-style:italic;
+    font-size:300px;line-height:.82;letter-spacing:-.04em;color:#fdf6e6;
+    text-shadow:0 30px 80px rgba(247,221,125,.18);
+  }
+  .countdown .unit{
+    margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.32em;text-transform:uppercase;
+    color:#f7dd7d;
+  }
+
+  /* BOTTOM cream */
+  .lower{
+    position:relative;padding:46px 32px 0;color:#0a1226;
+  }
+  .lower .meta-line{
+    display:flex;align-items:center;justify-content:center;gap:14px;
+    font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.32em;text-transform:uppercase;
+    color:rgba(10,18,38,.55);margin-bottom:18px;
+  }
+  .lower .meta-line .b{width:24px;height:1px;background:rgba(10,18,38,.4)}
+  .lower h2{
+    text-align:center;font-family:'DM Serif Display',serif;font-weight:400;
+    font-size:38px;line-height:1.05;letter-spacing:-.015em;
+  }
+  .lower h2 em{font-style:italic;color:#406aaf}
+  .lower p{
+    text-align:center;margin:14px auto 0;max-width:380px;font-size:13px;line-height:1.5;color:rgba(10,18,38,.7);
+  }
+
+  /* bottom bar */
+  .bot-bar{
+    position:absolute;bottom:46px;left:30px;right:30px;
+    display:flex;justify-content:space-between;align-items:center;
+    padding-top:14px;border-top:1px solid rgba(10,18,38,.25);
+    font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.32em;text-transform:uppercase;
+    color:rgba(10,18,38,.65);
+  }
+  .bot-bar b{color:#0a1226;font-weight:500}
+</style>
+</head>
+<body>
+  <div class="canvas">
+    <section class="band">
+      <div class="top-bar">
+        <span><b>COUNTING DOWN</b> · 02</span>
+        <span>05·19·2026</span>
+      </div>
+
+      <div class="cal-label">May<span class="dot"></span>19<span class="dot"></span>2026</div>
+
+      <div class="countdown">
+        <div class="label">Election Day in</div>
+        <div class="number">47</div>
+        <div class="unit">Days Remaining</div>
+      </div>
+    </section>
+
+    <section class="lower">
+      <div class="meta-line"><span class="b"></span> Lorem Ipsum <span class="b"></span></div>
+      <h2>Mark <em>the day.</em><br>Then make it count.</h2>
+      <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+    </section>
+
+    <footer class="bot-bar">
+      <span><b>JADE · OR-05</b></span>
+      <span>Vol. 02 · 2026</span>
+    </footer>
+  </div>
+</body>
+</html>

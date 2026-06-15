@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Story 01 — Editorial Quote</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    background:#11161e;display:grid;place-items:center;
+    font-family:'Space Grotesk',system-ui,sans-serif;padding:48px;
+  }
+  .canvas{
+    width:540px;height:960px;position:relative;overflow:hidden;
+    background:
+      radial-gradient(120% 60% at 0% 0%, rgba(247,221,125,.18), transparent 55%),
+      radial-gradient(80% 60% at 100% 100%, rgba(64,106,175,.32), transparent 60%),
+      linear-gradient(180deg,#0a1226 0%, #060b1c 100%);
+    color:#ffe8be;
+    box-shadow:0 60px 140px -40px rgba(0,0,0,.6);
+  }
+  .grain{
+    position:absolute;inset:0;pointer-events:none;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.6 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.45'/></svg>");
+    opacity:.4;mix-blend-mode:overlay;
+  }
+
+  /* editorial top bar */
+  .top-bar{
+    position:absolute;top:60px;left:30px;right:30px;
+    display:flex;justify-content:space-between;align-items:center;
+    font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.32em;text-transform:uppercase;
+    color:rgba(255,232,190,.75);
+  }
+  .top-bar b{color:#f7dd7d;font-weight:500}
+
+  /* corner brackets */
+  .br{position:absolute;width:22px;height:22px;border-color:rgba(255,232,190,.4)}
+  .br.tl{top:110px;left:36px;border-top:1px solid;border-left:1px solid}
+  .br.tr{top:110px;right:36px;border-top:1px solid;border-right:1px solid}
+  .br.bl{bottom:150px;left:36px;border-bottom:1px solid;border-left:1px solid}
+  .br.br{bottom:150px;right:36px;border-bottom:1px solid;border-right:1px solid}
+
+  /* quote mark */
+  .qm{
+    position:absolute;top:170px;left:42px;
+    font-family:'Instrument Serif',serif;font-style:italic;font-size:200px;line-height:.5;
+    color:#f7dd7d;opacity:.45;
+  }
+  .stage{
+    position:absolute;left:50px;right:50px;top:50%;transform:translateY(-44%);
+  }
+  .stage .eyebrow{
+    font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.32em;text-transform:uppercase;
+    color:#f7dd7d;display:flex;align-items:center;gap:10px;margin-bottom:18px;
+  }
+  .stage .eyebrow .dash{width:24px;height:1px;background:#f7dd7d}
+  .stage h1{
+    font-family:'Instrument Serif',serif;font-weight:400;
+    font-size:52px;line-height:1.05;letter-spacing:-.012em;color:#fdf6e6;
+  }
+  .stage h1 em{font-style:italic;color:#f7dd7d}
+  .stage p{
+    margin-top:22px;font-size:13px;line-height:1.55;color:rgba(255,232,190,.7);
+  }
+  .attrib{
+    margin-top:26px;display:flex;align-items:center;gap:10px;
+    font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.28em;text-transform:uppercase;
+    color:rgba(255,232,190,.75);
+  }
+  .attrib .stroke{width:18px;height:1px;background:rgba(255,232,190,.5)}
+
+  /* editorial bottom bar */
+  .bot-bar{
+    position:absolute;bottom:54px;left:30px;right:30px;
+    display:flex;justify-content:space-between;align-items:center;
+    padding-top:18px;border-top:1px solid rgba(255,232,190,.22);
+    font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.32em;text-transform:uppercase;
+    color:rgba(255,232,190,.65);
+  }
+  .bot-bar b{color:#f7dd7d;font-weight:500}
+</style>
+</head>
+<body>
+  <div class="canvas">
+
+    <div class="top-bar">
+      <span><b>FIELD NOTES</b> · Vol. 04</span>
+      <span>№ 01 / 10</span>
+    </div>
+
+    <span class="br tl"></span><span class="br tr"></span><span class="br bl"></span><span class="br br"></span>
+
+    <span class="qm">"</span>
+
+    <div class="stage">
+      <div class="eyebrow"><span class="dash"></span> Field Notes · 01</div>
+      <h1>Lorem ipsum dolor sit amet — <em>consectetur</em> adipiscing elit.</h1>
+      <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+      <div class="attrib"><span class="stroke"></span> Jade Oregon · OR-05</div>
+    </div>
+
+    <div class="bot-bar">
+      <span><b>JADE · OR-05</b></span>
+      <span>Jadeoregon.com</span>
+    </div>
+
+    <div class="grain"></div>
+  </div>
+</body>
+</html>

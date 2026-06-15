@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Story 10 — Magazine Cover</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,700;1,6..96,400&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    background:#11161e;display:grid;place-items:center;
+    font-family:'Space Grotesk',system-ui,sans-serif;padding:48px;
+  }
+  .canvas{
+    width:540px;height:960px;position:relative;overflow:hidden;
+    background:#0a1226;color:#fdf6e6;
+    box-shadow:0 60px 140px -40px rgba(0,0,0,.6);
+  }
+  .photo{
+    position:absolute;inset:0;
+    background-image:
+      linear-gradient(180deg, rgba(10,18,38,.0) 30%, rgba(10,18,38,.65) 80%, rgba(10,18,38,.95) 100%),
+      url("https://picsum.photos/seed/jade-mag-cover-portrait/700/1200");
+    background-size:cover;background-position:center 30%;
+    filter:contrast(1.05) saturate(.88);
+  }
+  .grade{
+    position:absolute;inset:0;mix-blend-mode:color;
+    background:linear-gradient(180deg, rgba(64,106,175,.45) 0%, transparent 50%, rgba(247,221,125,.35) 100%);
+    opacity:.7;
+  }
+  .grain{
+    position:absolute;inset:0;pointer-events:none;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/></svg>");
+    opacity:.45;mix-blend-mode:overlay;
+  }
+
+  /* MASTHEAD */
+  .mast{
+    position:absolute;top:54px;left:24px;right:24px;text-align:center;
+  }
+  .mast .vol{
+    display:flex;justify-content:space-between;align-items:center;
+    font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.32em;text-transform:uppercase;
+    color:rgba(255,232,190,.78);margin-bottom:8px;
+  }
+  .mast h1{
+    font-family:'Bodoni Moda',serif;font-weight:700;
+    font-size:84px;line-height:.9;letter-spacing:-.025em;color:#fdf6e6;
+    text-shadow:0 30px 80px rgba(0,0,0,.4);
+  }
+  .mast .sub{
+    margin-top:6px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.45em;text-transform:uppercase;
+    color:#f7dd7d;
+  }
+
+  /* COVER LINES — left rail, clear of pricebox */
+  .lines{
+    position:absolute;left:24px;top:300px;display:flex;flex-direction:column;gap:14px;width:200px;
+  }
+  .lines .item{
+    background:rgba(10,18,38,.62);backdrop-filter:blur(8px);
+    border:1px solid rgba(255,232,190,.2);
+    padding:11px 13px;
+    font-family:'Bodoni Moda',serif;font-style:italic;font-size:14px;line-height:1.2;color:#fdf6e6;
+  }
+  .lines .item b{display:block;font-family:'JetBrains Mono',monospace;font-style:normal;font-size:9px;letter-spacing:.32em;text-transform:uppercase;color:#f7dd7d;margin-bottom:4px;font-weight:500}
+
+  /* PRICE BOX — right rail */
+  .pricebox{
+    position:absolute;right:24px;top:300px;width:96px;
+    border:1px solid rgba(255,232,190,.4);background:rgba(10,18,38,.62);backdrop-filter:blur(8px);
+    text-align:center;padding:14px 8px;
+    font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.28em;text-transform:uppercase;
+    color:rgba(255,232,190,.85);
+  }
+  .pricebox .num{
+    font-family:'Bodoni Moda',serif;font-style:italic;font-size:32px;color:#f7dd7d;margin:6px 0;font-weight:700;line-height:1;
+  }
+
+  /* COVER HEADLINE */
+  .cover-head{
+    position:absolute;left:24px;right:24px;top:600px;
+  }
+  .cover-head .kicker{
+    font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.32em;text-transform:uppercase;
+    color:#f7dd7d;margin-bottom:14px;display:flex;align-items:center;gap:10px;
+  }
+  .cover-head .kicker .b{width:30px;height:1px;background:#f7dd7d}
+  .cover-head h2{
+    font-family:'Bodoni Moda',serif;font-weight:400;font-style:italic;
+    font-size:50px;line-height:.96;letter-spacing:-.02em;color:#fdf6e6;
+  }
+  .cover-head h2 b{font-style:normal;font-weight:700;color:#f7dd7d}
+
+  /* footer block — barcode + edition line */
+  .footer-block{
+    position:absolute;bottom:54px;left:24px;right:24px;
+    display:flex;justify-content:space-between;align-items:flex-end;
+    padding-top:18px;border-top:1px solid rgba(255,232,190,.22);
+  }
+  .edition-info{
+    font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.32em;text-transform:uppercase;
+    color:rgba(255,232,190,.7);line-height:1.6;
+  }
+  .edition-info b{color:#f7dd7d;font-weight:500}
+  .barcode-area{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+  .barcode{display:flex;align-items:flex-end;gap:1px;height:32px}
+  .barcode span{width:2px;background:#fdf6e6;height:100%}
+  .barcode span:nth-child(2n){height:65%}
+  .barcode span:nth-child(3n){height:85%}
+  .barcode span:nth-child(5n){height:50%}
+  .barcode-tag{
+    font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.24em;color:rgba(255,232,190,.6);
+  }
+</style>
+</head>
+<body>
+  <div class="canvas">
+    <div class="photo"></div>
+    <div class="grade"></div>
+
+    <div class="mast">
+      <div class="vol"><span>Vol. 04 · Issue 10</span><span>★ 2026</span></div>
+      <h1>OREGON</h1>
+      <div class="sub">— A Field Journal —</div>
+    </div>
+
+    <div class="lines">
+      <div class="item"><b>Inside</b>Lorem ipsum dolor sit amet, consectetur.</div>
+      <div class="item"><b>Plus</b>Sed do eiusmod tempor incididunt.</div>
+      <div class="item"><b>Profile</b>Ut enim ad minim veniam.</div>
+    </div>
+
+    <div class="pricebox">
+      Issue<br>
+      <span class="num">10</span>
+      OR · 05
+    </div>
+
+    <div class="cover-head">
+      <div class="kicker"><span class="b"></span> The Cover Story</div>
+      <h2>"Lorem ipsum, <b>dolor</b><br>sit amet."</h2>
+    </div>
+
+    <div class="footer-block">
+      <div class="edition-info">
+        <span><b>JADE · OR-05</b></span><br>
+        <span>04 · 2026</span>
+      </div>
+      <div class="barcode-area">
+        <div class="barcode">
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <span class="barcode-tag">JOR · 04 · 10</span>
+      </div>
+    </div>
+
+    <div class="grain"></div>
+  </div>
+</body>
+</html>
